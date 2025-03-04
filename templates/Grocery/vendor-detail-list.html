@@ -1,0 +1,106 @@
+{% extends 'partial/base.html' %}
+{% load static %}
+{% block body %}
+<div class="container-fluid px-4">
+    <!-- Hero Start -->
+    <div class="container-fluid py-5 mb-5 hero-header" style="background-image: url('{{ vendor.cover_image.url }}');">
+        <div class="container py-5">
+            <div class="row g-5 align-items-center">
+                <!-- Content Goes Here -->
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+    <!-- About Start -->
+    <div class="container-xxl py-5">
+        <div class="container px-4">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                    <div class="about-img position-relative overflow-hidden p-5 pe-0">
+                        <img class="img-fluid w-100" src="{{ vendor.image.url }}">
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                    <p><strong>since {{ vendor.date|date:"Y" }}</strong></p>
+                    <h1 class="display-5 mb-4">{{ vendor.title }}</h1>
+                    <p class="mb-4">{{ vendor.description }}</p>
+                    <p><i class="fa fa-map-marker-alt text-primary me-3"></i>{{ vendor.address }}</p>
+                    <p><i class="fa fa-phone text-primary me-3"></i>{{ vendor.contact }}</p>
+                    <a class="btn btn-primary rounded-pill py-3 px-5 mt-3" href="">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+    <!-- Feature Start -->
+    <div class="container-fluid bg-light bg-icon my-5 py-6 px-4">
+        <div class="container">
+            <div class="section-header text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <h1 class="display-5 mb-3">Our Features</h1>
+                <p>Tempor ut dolore lorem kasd vero ipsum sit eirmod sit.</p>
+            </div>
+            <div class="row g-4">
+                {% for feature in features %}
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.{{ forloop.counter }}s">
+                    <div class="bg-white text-center h-100 p-4 p-xl-5">
+                        <img class="img-fluid mb-4" src="{{ feature.icon }}" alt="">
+                        <h4 class="mb-3">{{ feature.title }}</h4>
+                        <p class="mb-4">{{ feature.description }}</p>
+                        <a class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" href="">Read More</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Feature End -->
+
+    <!-- Product Start -->
+    <div class="container-xxl py-5">
+
+            <div class="row g-0 gx-5 align-items-end">
+                <div class="col-lg-6">
+                    <div class="section-header text-start mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                        <h1 class="display-5 mb-3">Our Products</h1>
+                        <p>Explore our fresh and organic products sourced from the best vendors.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-4">
+                {% for product in products %}
+                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.{{ forloop.counter }}s">
+                    <div class="product-item border border-warning rounded">
+                        <div class="position-relative bg-light overflow-hidden">
+                            <img class="img-fluid w-100" src="{{ product.image.url }}" alt="{{ product.name }}">
+                            {% if product.is_new %}
+                            <div class="bg-success text-white position-absolute start-0 top-0 m-3 py-1 px-3 rounded">New</div>
+                            {% endif %}
+                        </div>
+                        <div class="text-center p-4">
+                            <a class="d-block h5 mb-2" href="#">{{ product.title }}</a>
+                            <span class="text-primary me-1">${{ product.price }}</span>
+                            {% if product.old_price %}
+                            <span class="text-body text-decoration-line-through">${{ product.old_price }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="d-flex border-top">
+                            <small class="w-50 text-center border-end py-2">
+                                <a class="text-body" href="#"><i class="fa fa-eye text-primary me-2"></i>View Detail</a>
+                            </small>
+                            <small class="w-50 text-center py-2">
+                                <a class="text-body" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Add to Cart</a>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-center text-muted">No products available.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Products End -->
+
+{% endblock %}

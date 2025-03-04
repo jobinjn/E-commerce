@@ -1,0 +1,359 @@
+{% extends 'partial/base.html' %}
+{% load static %}
+{% block body %}
+        <!-- Single Page Header start -->
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6">{{product.category}}</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="{% url 'Grocery:index' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'Grocery:product-list'%}">Products</a></li>
+                <li class="breadcrumb-item active text-white">{{ product.title }}</li>
+            </ol>
+        </div>
+        <!-- Single Page Header End -->
+
+
+        <!-- Single Product Start -->
+        <div class="container-fluid py-5 mt-5">
+            <div class="py-5">
+                <div class="row g-4 mb-5">
+                    <div class="col-lg-8 col-xl-9">
+                        <div class="row g-4">
+                            <div class="row">
+                            <!-- Left Column: Product Images -->
+                            <div class="col-lg-6">
+                                <!-- Main Image -->
+                            <div class="border rounded main-image-container">
+                                <a href="#">
+                                    <img id="mainImage" src="{{ product.image.url }}" class="img-fluid rounded main-image" alt="Main Image"  >
+                                </a>
+                            </div>
+
+                            <!-- Thumbnail Images (Including Main Image) -->
+                            <div class="thumbnail-container d-flex mt-3">
+                                <!-- Add Main Image as First Thumbnail -->
+                                <a href="#" onclick="changeImage('{{ product.image.url }}'); return false;">
+                                    <img src="{{ product.image.url }}" class="thumbnail rounded" alt="Thumbnail Main">
+                                </a>
+
+                                <!-- Loop Through Other Images -->
+                                {% for p in p_image %}
+                                    <a href="#" onclick="changeImage('{{ p.image.url }}'); return false;">
+                                        <img src="{{ p.image.url }}" class="thumbnail rounded" alt="Thumbnail {{ forloop.counter }}">
+                                    </a>
+                                {% endfor %}
+                            </div>
+                            </div>
+
+                            <!-- Right Column: Product Details -->
+                            <div class="col-lg-6">
+                                <h1 class="fw-bold mb-2">{{ product.title }}</h1>
+                                <p>Tags: {% for  tag in product.tags.all %}<a href="{% url 'Grocery:tags-list' tag.slug  %}" rel="tag"> #{{tag.name}} </a>,{%endfor%}</p>
+                                <p class="mb-3">Category: {{ product.category }}</p>
+                               <div class="d-flex align-items-center">
+                                    <h5 class="fw-bold mb-0 me-2">${{ product.price }} </h5>
+                                    <h6 class="fw-bold mb-0 text-muted" style="text-decoration: line-through;">${{ product.old_price }}</h6>
+                                </div>
+                                <br>
+
+                                <div class="d-flex mb-4">
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <p class="mb-6">{{ product.description|truncatewords:30 }}</p>
+
+
+                                <p>Quantity:</p>
+                                <div class="d-flex align-items-center gap-2">
+                                    <!-- Decrease Quantity Button -->
+                                    <button class="btn btn-dark text-white fw-bold px-3 py-2 rounded"
+                                        onclick="decreaseQuantity()">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+
+                                    <!-- Quantity Display -->
+                                    <input type="text" id="quantity" class="text-center fw-bold border border-secondary bg-light"
+                                        style="width: 60px; height: 45px; font-size: 18px;" value="1" readonly>
+
+                                    <!-- Increase Quantity Button -->
+                                    <button class="btn btn-dark text-white fw-bold px-3 py-2 rounded"
+                                        onclick="increaseQuantity()">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+
+<br>
+                                <div class="d-flex gap-3">
+                                <!-- Add to Cart Button -->
+                                <a href="#" class="btn border border-dark bg-dark text-white px-5 py-3">
+                                    <i class="fa fa-shopping-bag me-2"></i> Add to Cart
+                                </a>
+
+                                <!-- Save for Later Button -->
+                                <a href="#" class="btn border border-dark bg-dark text-white px-5 py-3">
+                                    <i class="fa fa-bookmark me-2"></i> Save for Later
+                                </a>
+                            </div>
+
+                            </div>
+
+                            <!-- Full Width Section: Product Description and Reviews -->
+                            <div class="col-lg-12">
+                                <nav>
+                                    <div class="nav nav-tabs mb-3">
+                                        <button class="nav-link active border-white border-bottom-0" type="button" role="tab"
+                                            id="nav-about-tab" data-bs-toggle="tab" data-bs-target="#nav-about"
+                                            aria-controls="nav-about" aria-selected="true">Description</button>
+                                        <button class="nav-link border-white border-bottom-0" type="button" role="tab"
+                                            id="nav-mission-tab" data-bs-toggle="tab" data-bs-target="#nav-mission"
+                                            aria-controls="nav-mission" aria-selected="false">Reviews({{reviews.count}})</button>
+                                    </div>
+                                </nav>
+                                <div class="tab-content mb-5">
+                                    <div class="tab-pane active" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+                                        <p>{{ product.description }} </p>
+                                        <div class="px-2">
+                                            <div class="row g-4">
+                                                <div class="col-6">
+                                                    <div class="row bg-light align-items-center text-center justify-content-center py-2">
+                                                        <div class="col-6"><p class="mb-0">Type</p></div>
+                                                        <div class="col-6"><p class="mb-0">{{ product.type }} </p></div>
+                                                    </div>
+                                                    <div class="row text-center align-items-center justify-content-center py-2">
+                                                        <div class="col-6"><p class="mb-0">Mfd.Date</p></div>
+                                                        <div class="col-6"><p class="mb-0">{{ product.mfd|date:"D, M Y" }}</p></div>
+                                                    </div>
+                                                    <div class="row bg-light text-center align-items-center justify-content-center py-2">
+                                                        <div class="col-6"><p class="mb-0">Life</p></div>
+                                                        <div class="col-6"><p class="mb-0">{{product.life}}</p></div>
+                                                    </div>
+                                                    <div class="row text-center align-items-center justify-content-center py-2">
+                                                        <div class="col-6"><p class="mb-0">Stock</p></div>
+                                                        <div class="col-6"><p class="mb-0">{{ product.stock_count }} items</p></div>
+                                                    </div>
+                                                    <div class="row bg-light text-center align-items-center justify-content-center py-2">
+                                                        <div class="col-6"><p class="mb-0">Sku</p></div>
+                                                        <div class="col-6"><p class="mb-0">{{ product.sku }} </p></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    <div class="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
+                                        {% for r in reviews|slice:":5" %}
+                                        <div class="d-flex">
+                                            <img src="{% static 'img/avatar.jpg' url %}" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
+                                            <div class="">
+                                                <p class="mb-2" style="font-size: 14px;">{{ r.date|date:"D, M Y" }}</p>
+                                                <div class="d-flex justify-content-between">
+                                                    <h5>{{r.user.username|title}}</h5>
+                                                    <div class="d-flex mb-3">
+                                                        {{r.ratings}}
+                                                    </div>
+                                                </div>
+                                                <p>{{ r.review }} </p>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment-box p-4 rounded shadow-sm" style="background-color: #f8f9fa; border-radius: 12px;">
+                            <form id="reviewForm" method="POST">
+                                {% csrf_token %}
+                                <h4 class="mb-4 fw-bold">Leave a Reply</h4>
+                                <div class="row g-3">
+                                    <div class="col-lg-12">
+                                        {{ review_form.review }}
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="d-flex justify-content-between align-items-center py-3">
+                                            {{ review_form.ratings }}
+                                            <button type="submit" class="btn btn-primary rounded-pill px-4 py-2" id="comment">Post Comment</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            </div></div>
+                    </div>
+                    <div class="col-lg-4 col-xl-3">
+                        <div class="row g-3">
+                            <div class="col-lg-12 ">
+                                <!-- Search Bar -->
+                                <div class="input-group w-10 mx-auto d-flex mb-4">
+                                    <input type="search" class="form-control p-3" placeholder="Search products..." aria-describedby="search-icon-1">
+                                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+                                </div>
+
+                                <!-- Delivery Location Input -->
+                                <div class="p-3 bg-light rounded">
+                                    <h4 class="mb-3">Delivery Location</h4>
+                                    <hr>
+                                   <ul class="address-container">
+                                        <i class="fas fa-map-marker-alt location-icon"></i>
+                                        <i class="address-text">
+                                            {{ address.address }}
+                                            {% if address.status == True %}
+                                                <span class="verified">Verified Address <i class="fas fa-check-circle"></i></span>
+                                            {% else %}
+                                                <span class="unverified">Unverified Address <i class="fas fa-times-circle"></i></span>
+                                            {% endif %}
+                                        </i>
+                                   </ul>
+                                    <div class="d-flex justify-content-center">
+                                        <button class="btn btn-outline-primary btn-sm mt-2">Change</button>
+                                    </div>
+                                </div>
+
+                                <!-- Vendor Details Box -->
+                                <div class="p-3 bg-light rounded mt-4 text-center">
+                                    <h5 class="mb-3">Vendor </h5>
+                                    <img src="{{ product.vendor.image.url }}" class="img-fluid rounded-circle mb-2" alt="Vendor Image" width="80">
+                                    <p class="mb-1"><strong>Name:</strong> {{product.vendor.title}}</p>
+                                    <p class="mb-1"><strong>Location:</strong> {{product.vendor.address}}</p>
+                                    <p class="mb-1"><strong>Contact:</strong> {{product.vendor.contact }}</p>
+                                    <p class="mb-1"><strong>Email:</strong> {{product.vendor.title}}</p>
+                                    <hr>
+                                    <div>
+                                        <p>Become a vendor?</p>
+                                    <button class="btn btn-outline-primary btn-sm mt-2">Register Now</button>
+                                        </div>
+                                </div>
+                            </div>
+
+                            <!-- featured products -->
+
+                            <div class="col-lg-12">
+                                <h4 class="mb-4">Featured products</h4>
+                                {% for product in products|slice:":5"  %}
+                                <div class="d-flex align-items-center justify-content-start mb-3">
+                                    <div class="rounded" style="width: 100px; height: 100px;">
+                                        <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
+                                    </div>
+                                    <div class="ms-3">
+                                        <h6 class="mb-2">{{ product.title }}</h6>
+                                        <div class="d-flex mb-2">
+                                            {% for _ in "12345"|make_list %}
+                                                <i class="fa fa-star {% if forloop.counter <= product.rating %}text-secondary{% else %}text-muted{% endif %}"></i>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="d-flex mb-2">
+                                            <h5 class="fw-bold me-2">{{ product.price }} $</h5>
+                                            <h5 class="text-danger text-decoration-line-through">{{ product.old_price }} $</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                <div class="d-flex justify-content-center my-4">
+                                    <a href="#" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">View More</a>
+                                </div>
+                            </div>
+
+
+                            <!-- Customer Reviews -->
+                                    <div class="customer-reviews w-100 p-3 border rounded bg-light">
+                                    <h5>Customer reviews</h5>
+                                    <div class="d-flex align-items-center">
+                                    <span class="fw-bold">{{average_rating.rating|floatformat:1}} out of 5</span>
+                                    <div class="ms-2">
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star-half-alt text-warning"></i>
+                                    </div>
+                                    </div>
+                                    <p class="small">7,243 global ratings</p>
+                                    <div class="ratings">
+                                    <div class="d-flex align-items-center">
+                                        <span class="me-2">5 star</span>
+                                        <div class="progress w-100">
+                                            <div class="progress-bar bg-warning" style="width: 56%"></div>
+                                        </div>
+                                        <span class="ms-2">56%</span>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="me-2">4 star</span>
+                                        <div class="progress w-100">
+                                            <div class="progress-bar bg-warning" style="width: 23%"></div>
+                                        </div>
+                                        <span class="ms-2">23%</span>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="me-2">3 star</span>
+                                        <div class="progress w-100">
+                                            <div class="progress-bar bg-warning" style="width: 11%"></div>
+                                        </div>
+                                        <span class="ms-2">11%</span>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="me-2">2 star</span>
+                                        <div class="progress w-100">
+                                            <div class="progress-bar bg-warning" style="width: 4%"></div>
+                                        </div>
+                                        <span class="ms-2">4%</span>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="me-2">1 star</span>
+                                        <div class="progress w-100">
+                                            <div class="progress-bar bg-warning" style="width: 5%"></div>
+                                        </div>
+                                        <span class="ms-2">5%</span>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="fw-bold mb-4 text-center">Related Products</h1>
+
+                <div class="tab-content">
+                    <div class="row g-4">
+                    {% for product in products|slice:":18"  %}
+                    <div class="col-xl-2 col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.{{ forloop.counter }}s">
+                        <div class="product-item border border-warning rounded">
+                            <div class="position-relative bg-light overflow-hidden">
+                                <img class="img-fluid w-120" src="{{ product.image.url }}" alt="{{ product.name }}">
+                                {% if product.is_new %}
+                                <div class="bg-success text-white position-absolute start-0 top-0 m-3 py-1 px-3 rounded">New</div>
+                                {% endif %}
+                            </div>
+                            <div class="text-center p-4">
+                                <a class="d-block h5 mb-2" href="{% url 'Grocery:product-details-list' product.pid%}">{{ product.title }}</a>
+                                <span class="text-primary me-1">${{ product.price }}</span>
+                                {% if product.old_price %}
+                                <span class="text-body text-decoration-line-through">${{ product.old_price }}</span>
+                                {% endif %}
+                            </div>
+                            <div class="d-flex border-top">
+                                <small class="w-50 text-center border-end py-2">
+                                    <a class="text-body" href="#"><i class="fa fa-eye text-primary me-2"></i>View Detail</a>
+                                </small>
+                                <small class="w-50 text-center py-2">
+                                    <a class="text-body" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Add to Cart</a>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-center text-muted">No products available.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- Single Product End -->
+        </div>
+<!-- JavaScript to Change Main Image -->
+<script>
+    function changeImage(imageUrl) {
+        document.getElementById("mainImage").src = imageUrl;
+    }
+</script>
+
+{% endblock %}

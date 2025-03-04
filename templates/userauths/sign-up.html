@@ -1,0 +1,129 @@
+{% extends 'partial/base.html' %}
+<head>
+{% block style %}
+  <style>
+      body {
+    background: linear-gradient(135deg, #ff7eb3, #ff758c);
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    display: flex;
+    flex-direction: column; /* Make body a flex container */
+    min-height: 70vh; /* Ensure body stretches to full height */
+    justify-content: space-between; /* Ensure header, content, and footer are spaced properly */
+  }
+
+ /* Input Fields */
+.form-container .form-control {
+    border: none; /* Remove the border */
+    border-bottom: 2px solid #ff7eb3; /* Add only a bottom border */
+    border-radius: 0; /* Remove rounded corners */
+    background-color: transparent; /* Optional: transparent background */
+    padding: 10px;
+    font-size: 1rem;
+    box-shadow: none; /* Remove any box shadow */
+    transition: border-color 0.3s ease; /* Add smooth transition for focus effect */
+}
+
+.form-container .form-control:focus {
+    border-bottom: 2px solid #ff758c; /* Change the bottom border color on focus */
+    outline: none; /* Remove the default outline */
+}
+
+/* Validation States */
+.form-container .form-control.is-invalid {
+    border-bottom: 2px solid #ff4d6d; /* Red border for invalid input */
+}
+
+.form-container .form-control.is-valid {
+    border-bottom: 2px solid #28a745; /* Green border for valid input */
+}
+
+
+
+  .form-container {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 100%;
+    margin: auto;
+    color: #333;
+  }
+
+  .form-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ff758c;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .form-footer {
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .form-footer a {
+    color: #ff758c;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .form-footer a:hover {
+    text-decoration: underline;
+  }
+
+  /* Ensure the content area grows and the footer stays at the bottom */
+  .content {
+    flex-grow: 1; /* Makes the content area grow and take available space */
+  }
+      /* Add spacing for the navbar and footer to prevent overlap */
+      body {
+          margin-top: 0px;
+          margin-bottom: 0px;
+      }
+  </style>
+{% endblock %}
+</head>
+
+{% block body %}
+<br>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="form-container">
+        <h2 class="form-title">Sign Up</h2>
+            <form method="POST" action="">
+            {% csrf_token %}
+            <div class="mb-3">
+<!--            #<label for="id_username" class="form-label">Username</label>-->
+            {{ form.username }}
+            </div>
+            <div class="mb-3">
+<!--            <label for="id_email" class="form-label"></label>-->
+                {{ form.email }}
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                    <p>This Email is Already Exist</p>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+<!--            #<label for="id_password1" class="form-label">Password</label>-->
+            {{ form.password1 }}
+            </div>
+            <div class="mb-3">
+<!--            #<label for="id_password2" class="form-label">Confirm Password</label>-->
+            {{ form.password2 }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+                <div class="form-footer">
+                <p>Already have an account? <a href="{% url 'userauths:sign-in' %}">Log in</a></p>
+            </div>
+            </form>
+
+    </div>
+</div>
+
+<br>
+{% endblock %}
