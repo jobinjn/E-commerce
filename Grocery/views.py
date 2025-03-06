@@ -119,12 +119,12 @@ def add_review_form(request, pid):
         user = user,
         product= product,
         review = request.POST['review'],
-        rating = request.POST['ratings'],
+        ratings = request.POST['ratings'],
     )
     context = {
         'user':user.username,
         'review' : request.POST['review'],
-        'rating' : request.POST['ratings'],
+        'ratings' : request.POST['ratings'],
     }
     average_rating = ProductReview.objects.filter(product=product).aggregate(rating = Avg('ratings'))
     return JsonResponse(
@@ -134,3 +134,6 @@ def add_review_form(request, pid):
          }
 
     )
+
+
+
