@@ -883,3 +883,139 @@ body, html {
         .icon-link:hover {
             transform: scale(1.1);
         }
+
+/* Prevent text overflow and ensure proper wrapping */
+.review-text {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    max-width: 100%;
+}
+
+/* Ensure flex container doesn't force overflow */
+.review-container {
+    min-width: 0;
+    max-width: 200%;
+    overflow: hidden;
+}
+
+/* Ensure parent container doesn’t allow overflow */
+.tab-pane {
+    max-width: 100%;
+    overflow: ;
+}
+/* General Form Styling */
+#reviewForm {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 1100px;
+    width: 100%;
+    margin: auto;
+}
+
+/* Labels Styling */
+#reviewForm .form-label {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Review Textarea */
+#reviewForm textarea {
+    width: 100%;
+    min-height: 120px;
+    resize: none;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+    transition: border 0.3s ease-in-out;
+}
+
+#reviewForm textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Rating Dropdown or Input */
+#reviewForm select,
+#reviewForm input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border 0.3s ease-in-out;
+}
+
+#reviewForm select:focus,
+#reviewForm input[type="number"]:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Submit Button */
+#reviewForm button {
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: background 0.3s ease-in-out;
+    border: none;
+}
+
+#reviewForm button:hover {
+    background-color: #0056b3;
+}
+
+/* Success Message */
+#review_success {
+    font-size: 14px;
+    font-weight: bold;
+    color: green;
+}
+/* Ensure the review container doesn't collapse */
+.review-container {
+    display: flex;
+    flex-direction: row;  /* Keep avatar and text side by side */
+    align-items: flex-start;  /* Align text with avatar */
+    gap: 15px;  /* Space between avatar and text */
+}
+
+/* Prevent long words from breaking layout */
+.review-container .review-text {
+    flex-grow: 1; /* Allows text to take remaining space */
+    min-width: 0; /* Ensures text wraps properly */
+    word-break: break-word; /* Breaks long words */
+    white-space: normal; /* Ensures wrapping */
+}
+
+/* Avatar styling */
+.review-container img {
+    flex-shrink: 0; /* Prevents image from shrinking */
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+}
+
+/* Review text styling */
+.review-container p {
+    font-size: 14px;
+    color: #444;
+    margin: 0;
+}
+/* Prevent long words from breaking layout */
+.review-container .review-text {
+    flex-grow: 1; /* Allows text to take remaining space */
+    min-width: 0; /* Ensures text wraps properly */
+    word-break: break-word; /* Breaks long words */
+    overflow-wrap: break-word; /* Ensures proper word wrapping */
+    white-space: normal; /* Ensures text wraps normally */
+}

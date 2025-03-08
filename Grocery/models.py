@@ -179,11 +179,11 @@ class CartOrderItems(models.Model):
 
 class ProductReview(models.Model):
     RATING = [
-        (1, "★☆☆☆☆"),
-        (2, "★★☆☆☆"),
-        (3, "★★★☆☆"),
-        (4, "★★★★☆"),
-        (5, "★★★★★"),
+        (1, "⭐"),
+        (2, "⭐⭐"),
+        (3, "⭐⭐⭐"),
+        (4, "⭐⭐⭐⭐"),
+        (5, "⭐⭐⭐⭐⭐"),
     ]
 
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)

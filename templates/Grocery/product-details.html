@@ -56,13 +56,13 @@
                                 </div>
                                 <br>
 
-                                <div class="d-flex mb-4">
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
+                                    <div class="d-flex mb-4">
+                                        <i class="fa fa-star text-secondary"></i>
+                                        <i class="fa fa-star text-secondary"></i>
+                                        <i class="fa fa-star text-secondary"></i>
+                                        <i class="fa fa-star text-secondary"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
                                 <p class="mb-6">{{ product.description|truncatewords:30 }}</p>
 
 
@@ -85,13 +85,12 @@
                                     </button>
                                 </div>
 
-<br>
+                                <br>
                                 <div class="d-flex gap-3">
                                 <!-- Add to Cart Button -->
                                 <a href="#" class="btn border border-dark bg-dark text-white px-5 py-3">
                                     <i class="fa fa-shopping-bag me-2"></i> Add to Cart
                                 </a>
-
                                 <!-- Save for Later Button -->
                                 <a href="#" class="btn border border-dark bg-dark text-white px-5 py-3">
                                     <i class="fa fa-bookmark me-2"></i> Save for Later
@@ -141,50 +140,81 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
 
-                                    <div class="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
-                                        {% for r in reviews|slice:":5" %}
-                                        <div class="d-flex">
-                                            <img src="{% static 'img/avatar.jpg' url %}" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
-                                            <div class="">
-                                                <p class="mb-2" style="font-size: 14px;">{{ r.date|date:"D, M Y" }}</p>
-                                                <div class="d-flex justify-content-between">
-                                                    <h5>{{r.user.username|title}}</h5>
-                                                    <div class="d-flex mb-3">
-                                                        {{r.ratings}}
-                                                    </div>
+
+                            </div>
+                            </div>
+                            <div class="comment-box p-3 rounded shadow-sm" style="background-color: #f8f9fa; border-radius: 12px;">
+                                <div class="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
+                                    <!-- Loop Through Reviews (Only Show 5) -->
+                                    {% for r in reviews|slice:":5" %}
+                                            <div class="review-container d-flex align-items-start p-3 border-bottom bg-light rounded shadow-sm mb-3">
+                                        <!-- User Avatar -->
+                                        <img src="{% static 'img/avatar.jpg' %}" class="img-fluid rounded-circle me-3" style="width: 60px; height: 60px;" alt="User Avatar">
+
+                                        <!-- Review Content -->
+                                        <div class="flex-grow-1 review-text">
+                                            <p class="mb-1 text-muted" style="font-size: 14px;">{{ r.date|date:"D, M Y" }}</p>
+
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5 class="mb-0">{{ r.user.username|title }}</h5>
+
+                                                <!-- Star Ratings -->
+                                                <div class="d-flex">
+                                                    {% for _ in r.ratings|rjust:r.ratings %}
+                                                        <i class="fas fa-star text-warning"></i>
+                                                    {% endfor %}
                                                 </div>
-                                                <p>{{ r.review }} </p>
+                                            </div>
+
+                                            <!-- Review Text -->
+                                            <p class="mt-2 review-text">{{ r.review }}</p>
+                                        </div>
+                                    </div>
+
+
+
+                                    {% empty %}
+                                        <p class="text-muted text-center">No reviews yet. Be the first to leave one!</p>
+                                    {% endfor %}
+                                </div>
+
+                                <br>
+
+                                <!-- Review Form -->
+                                    <form id="reviewForm" method="POST" action="{% url 'Grocery:add_review_form' product.id %}" class="p-4 bg-light rounded shadow-sm">
+                                        {% csrf_token %}
+                                        <h4 class="mb-4 fw-bold">Leave a Review</h4>
+
+                                        <div class="mb-3" >
+                                            <label  class="form-label " >Your Review</label>
+                                            {{ review_form.review }}
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label fw-semibold">Rating</label>
+                                            <div class="d-flex align-items-center">
+                                                {{ review_form.ratings }}
                                             </div>
                                         </div>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="comment-box p-4 rounded shadow-sm" style="background-color: #f8f9fa; border-radius: 12px;">
-                            <form id="reviewForm" method="POST" action="{%  url 'Grocery:add_review_form' product.id %}">
-                                {% csrf_token %}
-                                <h4 class="mb-4 fw-bold">Leave a Reply</h4>
-                                <div class="row g-3">
-                                    <div class="col-lg-12">
-                                        {{ review_form.review }}
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="d-flex justify-content-between align-items-center py-3">
-                                            {{ review_form.ratings }}
-                                            <strong class="atext-success" id="review_success"></strong>
+
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <strong class="text-success" id="review_success"></strong>
                                             <button type="submit" class="btn btn-primary rounded-pill px-4 py-2" id="comment">Post Comment</button>
                                         </div>
-                                    </div>
-                                </div>
-                            </form>
-                            </div></div>
+                                    </form>
+
+                                <!-- Display Reviews Dynamically -->
+                                <div id="reviews"></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-4 col-xl-3">
-                        <div class="row g-3">
-                            <div class="col-lg-12 ">
+                    <div class="col-lg-4 col-xl-3" >
+                        <div class="row g-3" style="margin-left:20px">
+                            <div class="col-lg-14 " >
                                 <!-- Search Bar -->
                                 <div class="input-group w-10 mx-auto d-flex mb-4">
                                     <input type="search" class="form-control p-3" placeholder="Search products..." aria-describedby="search-icon-1">
@@ -257,27 +287,27 @@
 
 
                             <!-- Customer Reviews -->
-                                    <div class="customer-reviews w-100 p-3 border rounded bg-light">
-                                    <h5>Customer reviews</h5>
+                            <div class="customer-reviews w-100 p-3 border rounded bg-light">
+                                <h5>Customer reviews</h5>
                                     <div class="d-flex align-items-center">
-                                    <span class="fw-bold">{{average_rating.rating|floatformat:1}} out of 5</span>
-                                    <div class="ms-2">
-                                        <i class="fa fa-star text-warning"></i>
-                                        <i class="fa fa-star text-warning"></i>
-                                        <i class="fa fa-star text-warning"></i>
-                                        <i class="fa fa-star text-warning"></i>
-                                        <i class="fa fa-star-half-alt text-warning"></i>
-                                    </div>
+                                        <span class="fw-bold">{{average_rating.rating|floatformat:1}} out of 5</span>
+                                        <div class="ms-2">
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star text-warning"></i>
+                                            <i class="fa fa-star-half-alt text-warning"></i>
+                                        </div>
                                     </div>
                                     <p class="small">7,243 global ratings</p>
-                                    <div class="ratings">
-                                    <div class="d-flex align-items-center">
-                                        <span class="me-2">5 star</span>
-                                        <div class="progress w-100">
-                                            <div class="progress-bar bg-warning" style="width: 56%"></div>
+                                <div class="ratings">
+                                        <div class="d-flex align-items-center">
+                                            <span class="me-2">5 star</span>
+                                            <div class="progress w-100">
+                                                <div class="progress-bar bg-warning" style="width: 56%"></div>
+                                            </div>
+                                            <span class="ms-2">56%</span>
                                         </div>
-                                        <span class="ms-2">56%</span>
-                                    </div>
                                     <div class="d-flex align-items-center">
                                         <span class="me-2">4 star</span>
                                         <div class="progress w-100">
@@ -306,9 +336,9 @@
                                         </div>
                                         <span class="ms-2">5%</span>
                                     </div>
-                                    </div>
-                                    </div>
-                                    </div>
+                                </div>
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -348,6 +378,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Single Product End -->
 
 <!-- JavaScript to Change Main Image -->
@@ -355,6 +386,7 @@
     function changeImage(imageUrl) {
         document.getElementById("mainImage").src = imageUrl;
     }
+
 </script>
 
 {% endblock %}

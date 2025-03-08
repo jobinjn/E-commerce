@@ -116,24 +116,26 @@ def add_review_form(request, pid):
     user = request.user
 
     review = ProductReview.objects.create(
-        user = user,
-        product= product,
-        review = request.POST['review'],
-        ratings = request.POST['ratings'],
+        user=user,
+        product=product,
+        review=request.POST['review'],
+        ratings=request.POST['ratings'],  # Ensure integer
     )
-    context = {
-        'user':user.username,
-        'review' : request.POST['review'],
-        'ratings' : request.POST['ratings'],
-    }
-    average_rating = ProductReview.objects.filter(product=product).aggregate(rating = Avg('ratings'))
-    return JsonResponse(
-        {'bool': True,
-         'avg': context,
-         'average_rating':average_rating,
-         }
 
-    )
+    context = {
+        'user': user.username,
+        'review': request.POST['review'],
+        'ratings': request.POST['ratings'],  # Ensure integer
+    }
+
+    # Compute average rating
+    average_rating = ProductReview.objects.filter(product=product).aggregate(rating=Avg('ratings'))
+
+    return JsonResponse({
+        'bool': True,
+        'context': context,  # ✅ Use "context" instead of "avg"
+        'average_rating': average_rating,
+    })
 
 
 
