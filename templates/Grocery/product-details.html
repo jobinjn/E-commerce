@@ -140,24 +140,24 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
-
-
                             </div>
                             </div>
+                            {% if request.user.is_authenticated %}
+                            {% if make_review == False %}
                             <div class="comment-box p-3 rounded shadow-sm" style="background-color: #f8f9fa; border-radius: 12px;">
                                 <div class="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
+                                    <div id="reviews">
                                     <!-- Loop Through Reviews (Only Show 5) -->
-                                    {% for r in reviews|slice:":5" %}
+                                    {% for r in reviews|slice:":3" %}
                                             <div class="review-container d-flex align-items-start p-3 border-bottom bg-light rounded shadow-sm mb-3">
                                         <!-- User Avatar -->
                                         <img src="{% static 'img/avatar.jpg' %}" class="img-fluid rounded-circle me-3" style="width: 60px; height: 60px;" alt="User Avatar">
 
                                         <!-- Review Content -->
                                         <div class="flex-grow-1 review-text">
-                                            <p class="mb-1 text-muted" style="font-size: 14px;">{{ r.date|date:"D, M Y" }}</p>
+                                            <p class="mb-1 text-muted" style="font-size: 14px;">{{ r.date|date:"d, M Y" }}</p>
 
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <h5 class="mb-0">{{ r.user.username|title }}</h5>
@@ -175,17 +175,14 @@
                                         </div>
                                     </div>
 
-
-
                                     {% empty %}
                                         <p class="text-muted text-center">No reviews yet. Be the first to leave one!</p>
                                     {% endfor %}
+                                        </div>
                                 </div>
-
                                 <br>
-
                                 <!-- Review Form -->
-                                    <form id="reviewForm" method="POST" action="{% url 'Grocery:add_review_form' product.id %}" class="p-4 bg-light rounded shadow-sm">
+                                <form id="reviewForm" method="POST" action="{% url 'Grocery:add_review_form' product.id %}" class="p-4 bg-light rounded shadow-sm">
                                         {% csrf_token %}
                                         <h4 class="mb-4 fw-bold">Leave a Review</h4>
 
@@ -205,11 +202,11 @@
                                             <strong class="text-success" id="review_success"></strong>
                                             <button type="submit" class="btn btn-primary rounded-pill px-4 py-2" id="comment">Post Comment</button>
                                         </div>
-                                    </form>
 
-                                <!-- Display Reviews Dynamically -->
-                                <div id="reviews"></div>
+                                    </form>
                             </div>
+                            {% endif %}
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col-lg-4 col-xl-3" >
@@ -380,6 +377,8 @@
         </div>
 
         <!-- Single Product End -->
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/functions.js' %}?v={{ STATIC_VERSION }}"></script>
 
 <!-- JavaScript to Change Main Image -->
 <script>

@@ -12,14 +12,31 @@
      visibility: visible;
      opacity: 1;
  }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.container-fluid {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 
  .back-to-top {
     position: fixed;
     right: 30px;
     bottom: 30px;
     display: flex;
-    width: 45px;
-    height: 45px;
+    width: 35px;
+    height: 35px;
     align-items: center;
     justify-content: center;
     transition: 0.5s;
@@ -30,13 +47,13 @@
 
 /*** Button Start ***/
 .btn {
-    font-weight: 600;
+    font-weight: 400;
     transition: .5s;
 }
 
 .btn-square {
-    width: 32px;
-    height: 32px;
+    width: 22px;
+    height: 22px;
 }
 
 .btn-sm-square {
@@ -50,15 +67,15 @@
 }
 
 .btn-lg-square {
-    width: 56px;
-    height: 56px;
+    width: 46px;
+    height: 46px;
 }
 
 .btn-square,
 .btn-sm-square,
 .btn-md-square,
 .btn-lg-square {
-    padding: 0;
+    padding: 10;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -87,7 +104,7 @@
 }
 
 .topbar .top-info {
-    font-size: 15px;
+    font-size: 12px;
     line-height: 0;
     letter-spacing: 1px;
     display: flex;
@@ -95,7 +112,7 @@
 }
 
 .topbar .top-link {
-    font-size: 15px;
+    font-size: 13px;
     line-height: 0;
     letter-spacing: 1px;
     display: flex;
@@ -119,7 +136,7 @@
 /*** Navbar Start ***/
 .navbar .navbar-nav .nav-link {
     padding: 10px 15px;
-    font-size: 16px;
+    font-size: 15px;
     transition: .5s;
 }
 
@@ -267,7 +284,7 @@
 .service .service-item .service-content {
     position: relative;
     width: 250px; 
-    height: 130px; 
+    height: 130px;
     top: -50%; 
     left: 50%; 
     transform: translate(-50%, -50%);
@@ -318,6 +335,74 @@
 .fruite .fruite-item .fruite-img img:hover {
     transform: scale(1.3);
 }
+.fruite-item {
+    border: 2px solid #FFD700 !important; /* Force yellow border */
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff; /* Ensures background is uniform */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Ensures entire card gets covered */
+    position: relative; /* Ensure proper positioning */
+}
+
+.fruite-img img {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 100%; /* Ensures image takes full width */
+}
+
+.p-4 {
+    flex-grow: 1; /* Makes content fill remaining space */
+    border: none !important; /* Remove unnecessary borders */
+}
+
+/* Ensure the discount badge does not break the border */
+.text-white.bg-secondary {
+    z-index: 2;
+}
+.fruite-item {
+    border: 2px solid #FFD700 !important; /* Ensure full border */
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Keep content aligned */
+    height: 100%; /* Ensure full card height */
+    position: relative;
+    padding-bottom: 10px; /* Adjust spacing */
+}
+
+.fruite-img img {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 100%;
+}
+
+.p-4 {
+    flex-grow: 1; /* Allow content to expand */
+    border: none !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Aligns title, price, and button */
+}
+
+/* Ensure the price and button stay aligned properly */
+.d-flex.justify-content-between {
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: auto; /* Pushes content to the bottom */
+}
+
+/* Ensure "Add to Cart" button is properly positioned */
+.btn.border-secondary {
+    width: 100%; /* Make the button full width */
+    text-align: center;
+    margin-top: 10px; /* Add spacing */
+}
+
 /*** Fruits End ***/
 
 
@@ -495,3 +580,442 @@
 }
 /*** Footer End ***/
 
+.product-card {
+    border: 2px solid #FFD700; /* Yellow border */
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.fruite-item {
+    border: 2px solid #FFD700; /* Yellow border */
+    border-radius: 10px;
+    overflow: hidden; /* Ensures child elements stay inside */
+}
+
+.p-4 {
+    border: none; /* Remove border from here */
+}
+
+
+.bg-icon {
+    background: url(../img/bg-icon.png) center center repeat;
+    background-size: contain;
+}
+/********** Template CSS **********/
+:root {
+    --primary: #3CB815;
+    --secondary: #F65005;
+    --light: #F7F8FC;
+    --dark: #111111;
+}
+
+.back-to-top {
+    position: fixed;
+    display: none;
+    right: 30px;
+    bottom: 30px;
+    z-index: 99;
+}
+
+.my-6 {
+    margin-top: 6rem;
+    margin-bottom: 6rem;
+}
+
+.py-6 {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+}
+
+.card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.badge {
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 50px;
+}
+
+.product-item {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.product-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.product-item img {
+    border-radius: 10px;
+}
+
+.border-warning {
+    border: 2px solid #ffc107 !important; /* Yellow border */
+}
+
+/* for images thumbnail */
+
+.main-image-container {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.main-image {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.thumbnail-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.thumbnail {
+    width: 50px;  /* Adjust size */
+    height: 50px; /* Adjust size */
+    border-radius: 10px;
+    object-fit: cover;
+    border: 2px solid transparent;
+    transition: 0.3s ease-in-out;
+}
+
+.thumbnail:hover, .thumbnail:focus {
+    border: 2px solid #ffa500; /* Highlight effect */
+    transform: scale(1.1);
+}
+
+
+.thumbnail-container {
+    display: flex;
+    gap: 10px;  /* Space between thumbnails */
+    justify-content: center;
+    align-items: center;
+}
+
+.thumbnail {
+    width: 80px; /* Adjust thumbnail size */
+    height: 80px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border 0.3s ease;
+}
+
+.thumbnail:hover {
+    border: 2px solid #28a745; /* Highlight on hover */
+}
+
+/* Verified Badge */
+.verified {
+    color: #28a745; /* Green */
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.verified i {
+    color: #28a745;
+    margin-left: 5px;
+}
+
+/* Unverified Badge */
+.unverified {
+    color: #dc3545; /* Red */
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.unverified i {
+    color: #dc3545;
+    margin-left: 5px;
+}
+.location-icon {
+    font-size: 20px;
+    color: #ff6f00; /* Orange */
+    margin-right: 10px;
+}
+
+/* Address Container */
+.address-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8f9fa; /* Light gray background */
+    padding: 1px 5px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    justify-content: space-between;
+}
+
+/* Location Icon */
+.location-icon {
+    font-size: 20px;
+    color: #ff6f00; /* Orange */
+    margin-right: 10px;
+}
+
+/* Address Text */
+.address-text {
+    flex-grow: 1;
+    color: #333;
+}
+
+/* Change Button */
+.change-btn {
+    background: #007bff; /* Blue */
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-right: 100px; /* Moves button to the right */
+
+}
+
+.change-btn:hover {
+    background: #0056b3; /* Darker Blue */
+}
+
+/* index products card spacing */
+
+.container, .fruite {
+    padding-left: 120px; /* Remove or set to 0 */
+    padding-right: 120px; /* Remove or set to 0 */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* If you want even more space */
+.container-fluid.py-5.mt-5 {
+    padding-left: 120px;
+    padding-right: 120px;
+}
+
+/* Ensure responsiveness */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+/* vendor list card */
+/* Custom container with side spacing */
+.custom-container {
+    max-width: 2000px; /* Limit width for better spacing */
+    margin: 0 auto;    /* Center content */
+    padding-left: 120px;
+    padding-right: 120px;
+}
+
+/* Adjust padding for larger screens */
+@media (min-width: 1800px) {
+    .custom-container {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+}
+
+/* Adjust padding for smaller screens */
+@media (max-width: 768px) {
+    .custom-container {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+}
+
+/* Custom  index featurs */
+/* Custom container with spacing */
+.custom-container {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* Ensure equal spacing for feature cards */
+.featurs-item {
+    transition: 0.3s ease-in-out;
+}
+.featurs-item:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .custom-container {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+}
+
+/* wishlist,compare ,view more */
+ .product-icons {
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .fruite-img:hover .product-icons {
+            opacity: 1;
+        }
+        .icon-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            transition: transform 0.2s ease-in-out;
+        }
+        .icon-link:hover {
+            transform: scale(1.1);
+        }
+
+/* Prevent text overflow and ensure proper wrapping */
+.review-text {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    max-width: 100%;
+}
+
+/* Ensure flex container doesn't force overflow */
+.review-container {
+    min-width: 0;
+    max-width: 200%;
+    overflow: hidden;
+}
+
+/* Ensure parent container doesn’t allow overflow */
+.tab-pane {
+    max-width: 100%;
+    overflow: ;
+}
+/* General Form Styling */
+#reviewForm {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 1100px;
+    width: 100%;
+    margin: auto;
+}
+
+/* Labels Styling */
+#reviewForm .form-label {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Review Textarea */
+#reviewForm textarea {
+    width: 100%;
+    min-height: 120px;
+    resize: none;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+    transition: border 0.3s ease-in-out;
+}
+
+#reviewForm textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Rating Dropdown or Input */
+#reviewForm select,
+#reviewForm input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border 0.3s ease-in-out;
+}
+
+#reviewForm select:focus,
+#reviewForm input[type="number"]:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Submit Button */
+#reviewForm button {
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: background 0.3s ease-in-out;
+    border: none;
+}
+
+#reviewForm button:hover {
+    background-color: #0056b3;
+}
+
+/* Success Message */
+#review_success {
+    font-size: 14px;
+    font-weight: bold;
+    color: green;
+}
+/* Ensure the review container doesn't collapse */
+.review-container {
+    display: flex;
+    flex-direction: row;  /* Keep avatar and text side by side */
+    align-items: flex-start;  /* Align text with avatar */
+    gap: 15px;  /* Space between avatar and text */
+}
+
+/* Prevent long words from breaking layout */
+.review-container .review-text {
+    flex-grow: 1; /* Allows text to take remaining space */
+    min-width: 0; /* Ensures text wraps properly */
+    word-break: break-word; /* Breaks long words */
+    white-space: normal; /* Ensures wrapping */
+}
+
+/* Avatar styling */
+.review-container img {
+    flex-shrink: 0; /* Prevents image from shrinking */
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+}
+
+/* Review text styling */
+.review-container p {
+    font-size: 14px;
+    color: #444;
+    margin: 0;
+}
+/* Prevent long words from breaking layout */
+.review-container .review-text {
+    flex-grow: 1; /* Allows text to take remaining space */
+    min-width: 0; /* Ensures text wraps properly */
+    word-break: break-word; /* Breaks long words */
+    overflow-wrap: break-word; /* Ensures proper word wrapping */
+    white-space: normal; /* Ensures text wraps normally */
+}

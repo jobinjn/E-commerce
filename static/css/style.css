@@ -1019,3 +1019,11 @@ body, html {
     overflow-wrap: break-word; /* Ensures proper word wrapping */
     white-space: normal; /* Ensures text wraps normally */
 }
+.review-item {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.stars i {
+    font-size: 14px;
+}
