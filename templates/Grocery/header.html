@@ -96,9 +96,21 @@
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
                     </div>
                     <div class="d-flex m-3 me-0">
-                        <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal">
-                            <i class="fas fa-search text-primary"></i>
-                        </button>
+                        <div class="search-container">
+                            <form action="{% url 'Grocery:search' %}" method="GET" >
+                            <select class="category-dropdown m-0 bg-white rounded-0">
+                                <option>All Categories</option>
+                                <option>Electronics</option>
+                                <option>Books</option>
+                                <option>Clothing</option>
+                                <option>Home & Kitchen</option>
+                            </select>
+                            <input type="text" class="search-input" placeholder="Search..." name="q">
+                            <button class="search-button" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                                </form>
+                        </div>
                         <a href="#" class="position-relative me-4 my-auto">
                             <i class="fa fa-shopping-bag fa-2x"></i>
                             <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>

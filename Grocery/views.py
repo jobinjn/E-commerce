@@ -1,4 +1,6 @@
 from http.client import HTTPResponse
+from lib2to3.fixes.fix_input import context
+
 from taggit.models import Tag
 from django.db.models import Avg
 from django.http import HttpResponse, JsonResponse
@@ -146,4 +148,13 @@ def add_review_form(request, pid):
     })
 
 
+def search_view(request):
+    query = request.GET.get("q")
 
+    products =  Product.objects.filter(title__icontains=query).order_by("-date")
+
+    context = {
+        "products":products,
+        "query":query,
+    }
+    return render(request,"Grocery/search.html", context)

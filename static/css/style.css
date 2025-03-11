@@ -1027,3 +1027,39 @@ body, html {
 .stars i {
     font-size: 14px;
 }
+
+
+.search-container {
+    display: flex;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    background: white;
+    margin:10px;
+}
+
+.category-dropdown {
+    border: none;
+    padding: 10px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.search-input {
+    border: 10px;
+    padding: 10px;
+    outline: none;
+    width: 200px;
+}
+
+.search-button {
+    border: 2px;
+    background: var(--bs-secondary) !important;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.search-button i {
+    font-size: 16px;
+}
